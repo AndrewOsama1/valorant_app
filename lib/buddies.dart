@@ -1,0 +1,182 @@
+import 'package:flutter/material.dart';
+import 'package:valorant_app/homepage.dart';
+import 'package:valorant_app/widgets/custom_app_bar.dart';
+import 'package:valorant_app/widgets/custom_drawer.dart';
+import 'package:valorant_app/widgets/glass_card.dart';
+import 'constant.dart';
+
+import 'package:carousel_slider/carousel_slider.dart';
+import 'package:http/http.dart' as http;
+import 'dart:convert';
+
+int currentIndex = 0;
+
+class BuddyData {
+  final String displayName;
+  final String displayIcon;
+
+  BuddyData({required this.displayName, required this.displayIcon});
+}
+
+class BuddiesScreen extends StatefulWidget {
+  const BuddiesScreen({super.key});
+
+  @override
+  State<BuddiesScreen> createState() => _BuddiesScreenState();
+}
+
+class _BuddiesScreenState extends State<BuddiesScreen> {
+  List<BuddyData> buddiesData = [];
+  CarouselController carouselController = CarouselController();
+
+  @override
+  void initState() {
+    super.initState();
+    fetchData();
+  }
+
+  Future<void> fetchData() async {
+    const url =
+        'https://valorant-api.com/v1/buddies'; // Replace with your API endpoint
+    final response = await http.get(Uri.parse(url));
+
+    if (response.statusCode == 200) {
+      final data = jsonDecode(response.body);
+      final buddies = data['data'];
+
+      setState(() {
+        buddiesData = buddies
+            .map<BuddyData>((buddy) => BuddyData(
+                  displayName: buddy['displayName'],
+                  displayIcon: buddy['displayIcon'],
+                ))
+            .toList();
+      });
+    }
+  }
+
+  void goToPrevious() {
+    carouselController.previousPage();
+  }
+
+  void goToNext() {
+    carouselController.nextPage();
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      backgroundColor: kBackgroundcolor,
+      appBar: const CustomAppBar(),
+      drawer: const CustomAppDrawer(),
+      body: Column(
+        children: [
+          const Text(
+            'Valorant Buddies',
+            style: TextStyle(fontSize: 35),
+          ),
+          Center(
+            child: GestureDetector(
+              onTap: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => const Homepage(),
+                  ),
+                );
+              },
+              child: Image.asset(
+                'assets/images/valorantlogo.png',
+                height: 200,
+                width: 200,
+              ),
+            ),
+          ),
+          Expanded(
+            child: buddiesData.isNotEmpty
+                ? CarouselSlider.builder(
+                    carouselController: carouselController,
+                    options: CarouselOptions(
+                      height: 400.0,
+                      // Adjust the height as needed
+                      enableInfiniteScroll: true,
+                      // Set to false if you don't want infinite scrolling
+                      enlargeCenterPage: true,
+                      // Set to false if you don't want the center image to be larger
+                      // Set to false if you don't want auto-play
+                      autoPlayInterval: const Duration(seconds: 2),
+                      // Adjust the interval duration
+                      autoPlayAnimationDuration:
+                          const Duration(milliseconds: 800),
+                      // Adjust the animation duration
+                      autoPlayCurve: Curves.fastOutSlowIn,
+                      // Adjust the animation curve
+                      onPageChanged: (index, reason) {
+                        setState(() {
+                          currentIndex = index;
+                        });
+                      },
+                    ),
+                    itemCount: buddiesData.length,
+                    itemBuilder:
+                        (BuildContext context, int index, int realIndex) {
+                      final buddy = buddiesData[index];
+                      return Container(
+                        width: MediaQuery.of(context).size.width,
+                        margin: const EdgeInsets.symmetric(horizontal: 5.0),
+                        child: Column(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            Text(
+                              buddy.displayName,
+                              style: const TextStyle(
+                                color: kMenucolor,
+                                fontSize: 25.0,
+                                fontWeight: FontWeight.bold,
+                              ),
+                            ),
+                            const SizedBox(height: 30.0),
+                            GlassnewsCard(
+                              imagePath: buddy.displayIcon,
+                            ),
+                          ],
+                        ),
+                      );
+                    },
+                  )
+                : const Center(
+                    child: CircularProgressIndicator(),
+                  ),
+          ),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              IconButton(
+                icon: const Icon(
+                  Icons.arrow_back,
+                  size: 20,
+                ),
+                color: Colors.white,
+                onPressed: goToPrevious,
+              ),
+              Text(
+                '${currentIndex + 1}/${buddiesData.length}',
+                style: const TextStyle(
+                  fontSize: 40,
+                ),
+              ),
+              IconButton(
+                color: Colors.white,
+                icon: const Icon(
+                  Icons.arrow_forward,
+                  size: 20,
+                ),
+                onPressed: goToNext,
+              ),
+            ],
+          ),
+        ],
+      ),
+    );
+  }
+}

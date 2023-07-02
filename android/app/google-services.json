@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "435912793539",
+    "project_id": "valorantapp-a786d",
+    "storage_bucket": "valorantapp-a786d.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:435912793539:android:090454c244a8cc946a7176",
+        "android_client_info": {
+          "package_name": "com.example.valorant_app"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "435912793539-274694dmm2cs5ucm1qbibgqoa5tsn70q.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyB6O7BALqmWSIByPGCDiJIXIKzIJHWNYjI"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "435912793539-274694dmm2cs5ucm1qbibgqoa5tsn70q.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
