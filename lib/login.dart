@@ -8,6 +8,7 @@ import 'package:valorant_app/homepage.dart';
 import 'package:modal_progress_hud_nsn/modal_progress_hud_nsn.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:valorant_app/register.dart';
+import 'package:valorant_app/service/authentication.dart';
 
 class LoginApp extends StatefulWidget {
   const LoginApp({super.key, Key? andrew});
@@ -60,20 +61,7 @@ class _LoginAppState extends State<LoginApp> {
                           child: Column(
                             crossAxisAlignment: CrossAxisAlignment.center,
                             children: [
-                              InkWell(
-                                onTap: () {
-                                  Navigator.push(
-                                      context,
-                                      MaterialPageRoute(
-                                          builder: (context) =>
-                                              const Homepage()));
-                                },
-                                child: Image.asset(
-                                  'assets/images/valorantlogo.png',
-                                  height: 110,
-                                  width: 110,
-                                ),
-                              ),
+                              const LogoWidget(),
                               const SizedBox(height: 5),
                               const Text(
                                 "Hello",
@@ -91,107 +79,9 @@ class _LoginAppState extends State<LoginApp> {
                                 ),
                               ),
                               const SizedBox(height: 30),
-                              SizedBox(
-                                width: 260,
-                                height: 60,
-                                child: TextField(
-                                  keyboardType: TextInputType.emailAddress,
-                                  textAlign: TextAlign.center,
-                                  onChanged: (value) {
-                                    email = value;
-                                  },
-                                  cursorColor: kMenucolor,
-                                  style: const TextStyle(
-                                    color: Colors
-                                        .black, // Set the text color to black
-                                  ),
-                                  decoration: const InputDecoration(
-                                    suffixIcon: Icon(
-                                      FontAwesomeIcons.envelope,
-                                      color: kMenucolor,
-                                    ),
-                                    labelText: "Email Address",
-                                    labelStyle: TextStyle(
-                                      color:
-                                          kMenucolor, // Set the text color when focused
-                                    ),
-                                    border: OutlineInputBorder(
-                                      borderRadius: BorderRadius.all(
-                                        Radius.circular(8),
-                                      ),
-                                    ),
-                                    focusedBorder: OutlineInputBorder(
-                                      borderRadius: BorderRadius.all(
-                                        Radius.circular(8),
-                                      ),
-                                      borderSide: BorderSide(
-                                        color:
-                                            kMenucolor, // Set the border color when focused
-                                      ),
-                                    ),
-                                    enabledBorder: OutlineInputBorder(
-                                      borderRadius: BorderRadius.all(
-                                        Radius.circular(8),
-                                      ),
-                                      borderSide: BorderSide(
-                                        color: Colors
-                                            .black, // Set the default border color
-                                      ),
-                                    ),
-                                  ),
-                                ),
-                              ),
+                              _emailTextField(),
                               const SizedBox(height: 12),
-                              SizedBox(
-                                width: 260,
-                                height: 60,
-                                child: TextField(
-                                  obscureText: true,
-                                  textAlign: TextAlign.center,
-                                  onChanged: (value) {
-                                    password = value;
-                                  },
-                                  cursorColor: kMenucolor,
-                                  style: const TextStyle(
-                                    color: Colors
-                                        .black, // Set the text color to black
-                                  ),
-                                  decoration: const InputDecoration(
-                                    suffixIcon: Icon(
-                                      FontAwesomeIcons.eyeSlash,
-                                      color: kMenucolor,
-                                    ),
-                                    labelText: "Password",
-                                    labelStyle: TextStyle(
-                                      color:
-                                          kMenucolor, // Set the text color when focused
-                                    ),
-                                    border: OutlineInputBorder(
-                                      borderRadius: BorderRadius.all(
-                                        Radius.circular(8),
-                                      ),
-                                    ),
-                                    focusedBorder: OutlineInputBorder(
-                                      borderRadius: BorderRadius.all(
-                                        Radius.circular(8),
-                                      ),
-                                      borderSide: BorderSide(
-                                        color:
-                                            kMenucolor, // Set the border color when focused
-                                      ),
-                                    ),
-                                    enabledBorder: OutlineInputBorder(
-                                      borderRadius: BorderRadius.all(
-                                        Radius.circular(8),
-                                      ),
-                                      borderSide: BorderSide(
-                                        color: Colors
-                                            .black, // Set the default border color
-                                      ),
-                                    ),
-                                  ),
-                                ),
-                              ),
+                              _passwordTextField(),
                               Padding(
                                 padding:
                                     const EdgeInsets.fromLTRB(20, 0, 30, 0),
@@ -216,34 +106,7 @@ class _LoginAppState extends State<LoginApp> {
                                 ),
                               ),
                               GestureDetector(
-                                onTap: () async {
-                                  try {
-                                    final user =
-                                        await _auth.signInWithEmailAndPassword(
-                                            email: email, password: password);
-                                    if (user != null) {
-                                      Navigator.push(
-                                          context,
-                                          MaterialPageRoute(
-                                              builder: (context) =>
-                                                  const Homepage()));
-                                    }
-                                  } catch (e) {
-                                    QuickAlert.show(
-                                      confirmBtnColor: kMenucolor,
-                                      confirmBtnTextStyle: const TextStyle(
-                                          fontFamily: 'valorant',
-                                          fontSize: 40,
-                                          color: Colors.white),
-                                      customAsset: 'assets/images/giphy.gif',
-                                      context: context,
-                                      type: QuickAlertType.error,
-                                      title: 'Oops... Login Failed',
-                                      text:
-                                          'The Email or The Password You Tried to Enter is Incorrect',
-                                    );
-                                  }
-                                },
+                                onTap: () => Authentication().signInWithEmailAndPassword(email, password, context),
                                 child: Container(
                                   alignment: Alignment.center,
                                   width: 250,
@@ -279,4 +142,99 @@ class _LoginAppState extends State<LoginApp> {
       ),
     );
   }
+
+  SizedBox _emailTextField() {
+    return SizedBox(
+                              width: 260,
+                              height: 60,
+                              child: TextField(
+                                keyboardType: TextInputType.emailAddress,
+                                textAlign: TextAlign.center,
+                                onChanged: (value) {
+                                  email = value;
+                                },
+                                cursorColor: kMenucolor,
+                                style: const TextStyle(
+                                  color: Colors
+                                      .black, // Set the text color to black
+                                ),
+                                decoration: const InputDecoration(
+                                  suffixIcon: Icon(
+                                    FontAwesomeIcons.envelope,
+                                    color: kMenucolor,
+                                  ),
+                                  labelText: "Email Address",
+                                  labelStyle: TextStyle(
+                                    color:
+                                        kMenucolor, // Set the text color when focused
+                                  ),
+                                  border: OutlineInputBorder(
+                                    borderRadius: BorderRadius.all(
+                                      Radius.circular(8),
+                                    ),
+                                  ),
+                                  focusedBorder: OutlineInputBorder(
+                                    borderRadius: BorderRadius.all(
+                                      Radius.circular(8),
+                                    ),
+                                    borderSide: BorderSide(
+                                      color:
+                                          kMenucolor, // Set the border color when focused
+                                    ),
+                                  ),
+                                  enabledBorder: OutlineInputBorder(
+                                    borderRadius: BorderRadius.all(
+                                      Radius.circular(8),
+                                    ),
+                                    borderSide: BorderSide(
+                                      color: Colors
+                                          .black, // Set the default border color
+                                    ),
+                                  ),
+                                ),
+                              ),
+                            );
+  }
+
+  SizedBox _passwordTextField() {
+    return SizedBox(
+                              width: 260,
+                              height: 60,
+                              child: TextField(
+                                obscureText: true,
+                                textAlign: TextAlign.center,
+                                onChanged: (value) {
+                                  password = value;
+                                },
+                                cursorColor: kMenucolor,
+                                style: const TextStyle(
+                                  color: Colors
+                                      .black, // Set the text color to black
+                                ),
+                                decoration: const InputDecoration(
+                                  suffixIcon: Icon(
+                                    FontAwesomeIcons.eyeSlash,
+                                    color: kMenucolor,
+                                  ),
+                                  labelText: "Password",
+                                  labelStyle: TextStyle(
+                                    color:
+                                        kMenucolor, // Set the text color when focused
+                                  ),
+                                  border: OutlineInputBorder(borderRadius: BorderRadius.all(Radius.circular(8),),),
+                                  focusedBorder: OutlineInputBorder(borderRadius: BorderRadius.all(Radius.circular(8),),
+                                    borderSide: BorderSide(
+                                      color: kMenucolor, // Set the border color when focused
+                                    ),
+                                  ),
+                                  enabledBorder: OutlineInputBorder(
+                                    borderRadius: BorderRadius.all(Radius.circular(8),), borderSide: BorderSide(color: Colors.black, // Set the default border color
+                                    ),
+                                  ),
+                                ),
+                              ),
+                            );
+  }
 }
+
+

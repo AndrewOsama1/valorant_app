@@ -3,6 +3,7 @@ import 'package:valorant_app/homepage.dart';
 import 'package:valorant_app/widgets/custom_app_bar.dart';
 import 'package:valorant_app/widgets/custom_drawer.dart';
 import 'package:valorant_app/widgets/glass_card.dart';
+import 'package:valorant_app/widgets/logo_widget.dart';
 import 'constant.dart';
 
 import 'package:carousel_slider/carousel_slider.dart';
@@ -75,22 +76,8 @@ class _BuddiesScreenState extends State<BuddiesScreen> {
             'Valorant Buddies',
             style: TextStyle(fontSize: 35),
           ),
-          Center(
-            child: GestureDetector(
-              onTap: () {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                    builder: (context) => const Homepage(),
-                  ),
-                );
-              },
-              child: Image.asset(
-                'assets/images/valorantlogo.png',
-                height: 200,
-                width: 200,
-              ),
-            ),
+          const Center(
+            child: LogoWidget(),
           ),
           Expanded(
             child: buddiesData.isNotEmpty

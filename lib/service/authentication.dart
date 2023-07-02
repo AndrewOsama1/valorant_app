@@ -1,46 +1,36 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:quickalert/models/quickalert_type.dart';
+import 'package:quickalert/widgets/quickalert_dialog.dart';
+
+import '../constant.dart';
 
 class Authentication {
   // For Authentication related functions you need an instance of FirebaseAuth
   final FirebaseAuth _auth = FirebaseAuth.instance;
 
-  //  This getter will be returning a Stream of User object.
+
   //  It will be used to check if the user is logged in or not.
   Stream<User?> get authStateChange => _auth.authStateChanges();
 
-  // Now This Class Contains 3 Functions currently
-  // 1. signInWithGoogle
-  // 2. signOut
-  // 3. signInwithEmailAndPassword
 
-  //  All these functions are async because this involves a future.
-  //  if async keyword is not used, it will throw an error.
-  //  to know more about futures, check out the documentation.
-  //  https://dart.dev/codelabs/async-await
-  //  Read this to know more about futures.
-  //  Trust me it will really clear all your concepts about futures
-
-  //  SigIn the user using Email and Password
   Future<void> signInWithEmailAndPassword(String email, String password,
       BuildContext context) async {
     try {
       await _auth.signInWithEmailAndPassword(email: email, password: password);
     } on FirebaseAuthException catch (e) {
-      await showDialog(
+      await  QuickAlert.show(
+        confirmBtnColor: kMenucolor,
+        confirmBtnTextStyle: const TextStyle(
+            fontFamily: 'valorant',
+            fontSize: 40,
+            color: Colors.white),
+        customAsset: 'assets/images/giphy.gif',
         context: context,
-        builder: (ctx) =>
-            AlertDialog(
-              title: Text('Error Occured'),
-              content: Text(e.toString()),
-              actions: [
-                TextButton(
-                    onPressed: () {
-                      Navigator.of(ctx).pop();
-                    },
-                    child: Text("OK"))
-              ],
-            ),
+        type: QuickAlertType.error,
+        title: 'Oops... Login Failed',
+        text:
+        'The Email or The Password You Tried to Enter is Incorrect',
       );
     }
   }
@@ -54,19 +44,19 @@ class Authentication {
         password: password,
       );
     } on FirebaseAuthException catch (e) {
-      await showDialog(
-          context: context,
-          builder: (ctx) =>
-              AlertDialog(
-                  title: Text('Error Occured'),
-                  content: Text(e.toString()),
-                  actions: [
-                    TextButton(
-                        onPressed: () {
-                          Navigator.of(ctx).pop();
-                        },
-                        child: Text("OK"))
-                  ]));
+      await QuickAlert.show(
+        confirmBtnColor: kMenucolor,
+        confirmBtnTextStyle: const TextStyle(
+            fontFamily: 'valorant',
+            fontSize: 40,
+            color: Colors.white),
+        customAsset: 'assets/images/gip.gif',
+        context: context,
+        type: QuickAlertType.warning,
+        title: 'Oops... Register Failed',
+        text:
+        'The Email You Tried to Enter is Already in Use',
+      );
     } catch (e) {
       if (e == 'email-already-in-use') {
         print('Email already in use.');

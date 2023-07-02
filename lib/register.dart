@@ -8,6 +8,7 @@ import 'package:valorant_app/homepage.dart';
 import 'package:modal_progress_hud_nsn/modal_progress_hud_nsn.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:valorant_app/login.dart';
+import 'package:valorant_app/service/authentication.dart';
 
 class Register extends StatefulWidget {
   const Register({super.key, Key? andrew});
@@ -216,34 +217,7 @@ class _RegisterState extends State<Register> {
                                 ),
                               ),
                               GestureDetector(
-                                onTap: () async {
-                                  try {
-                                    final newUser = await _auth
-                                        .createUserWithEmailAndPassword(
-                                            email: email, password: password);
-                                    if (newUser != null) {
-                                      Navigator.push(
-                                          context,
-                                          MaterialPageRoute(
-                                              builder: (context) =>
-                                                  const LoginApp()));
-                                    }
-                                  } catch (e) {
-                                    QuickAlert.show(
-                                      confirmBtnColor: kMenucolor,
-                                      confirmBtnTextStyle: const TextStyle(
-                                          fontFamily: 'valorant',
-                                          fontSize: 40,
-                                          color: Colors.white),
-                                      customAsset: 'assets/images/gip.gif',
-                                      context: context,
-                                      type: QuickAlertType.warning,
-                                      title: 'Oops... Register Failed',
-                                      text:
-                                          'The Email You Tried to Enter is Already in Use',
-                                    );
-                                  }
-                                },
+                                onTap: () => Authentication().signUpWithEmailAndPassword(email, password, context),
                                 child: Container(
                                   alignment: Alignment.center,
                                   width: 250,

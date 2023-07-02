@@ -3,6 +3,7 @@ import 'package:valorant_app/homepage.dart';
 import 'package:valorant_app/widgets/cardff.dart';
 import 'package:valorant_app/widgets/custom_app_bar.dart';
 import 'package:valorant_app/widgets/custom_drawer.dart';
+import 'package:valorant_app/widgets/logo_widget.dart';
 import 'constant.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:http/http.dart' as http;
@@ -74,22 +75,8 @@ class PlayerCardsState extends State<PlayerCardsScreen> {
             'Valorant playercards',
             style: TextStyle(fontSize: 25),
           ),
-          Center(
-            child: GestureDetector(
-              onTap: () {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                    builder: (context) => const Homepage(),
-                  ),
-                );
-              },
-              child: Image.asset(
-                'assets/images/valorantlogo.png',
-                height: 200,
-                width: 200,
-              ),
-            ),
+          const Center(
+            child: LogoWidget(),
           ),
           playerData.isNotEmpty
               ? CarouselSlider.builder(
