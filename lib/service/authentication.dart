@@ -46,6 +46,7 @@ class Authentication {
     } on FirebaseAuthException catch (e) {
       await QuickAlert.show(
         confirmBtnColor: kMenucolor,
+
         confirmBtnTextStyle: const TextStyle(
             fontFamily: 'valorant',
             fontSize: 40,
@@ -65,4 +66,16 @@ class Authentication {
       }
     }
   }
+  Future<void> signOut( BuildContext context) async {
+      await QuickAlert.show(
+        confirmBtnColor: kMenucolor,
+        onConfirmBtnTap: () =>  _auth.signOut(),
+        confirmBtnTextStyle: const TextStyle(fontFamily: 'valorant', fontSize: 40, color: Colors.white),
+        cancelBtnTextStyle: const TextStyle(fontFamily: 'valorant', fontSize: 40, color: kMenucolor),
+        customAsset: 'assets/images/gip.gif',
+        context: context,
+        type: QuickAlertType.confirm,
+        title: 'Are you sure you want to sign out?',
+      );
+    }
 }

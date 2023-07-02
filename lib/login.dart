@@ -9,6 +9,7 @@ import 'package:modal_progress_hud_nsn/modal_progress_hud_nsn.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:valorant_app/register.dart';
 import 'package:valorant_app/service/authentication.dart';
+import 'package:valorant_app/widgets/logo_widget.dart';
 
 class LoginApp extends StatefulWidget {
   const LoginApp({super.key, Key? andrew});
@@ -106,7 +107,7 @@ class _LoginAppState extends State<LoginApp> {
                                 ),
                               ),
                               GestureDetector(
-                                onTap: () => Authentication().signInWithEmailAndPassword(email, password, context),
+                                onTap: () { Authentication().signInWithEmailAndPassword(email, password, context); Navigator.pop(context);},
                                 child: Container(
                                   alignment: Alignment.center,
                                   width: 250,

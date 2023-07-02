@@ -2,6 +2,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:valorant_app/provider/authentication_provider.dart';
+import 'package:valorant_app/service/authentication.dart';
 
 import '../login.dart';
 
@@ -53,7 +54,8 @@ class CustomAppBar extends ConsumerWidget implements PreferredSizeWidget {
     return Padding(
       padding: const EdgeInsets.only(right: 16.0),
       child:  InkWell(
-        onTap: ()=> FirebaseAuth.instance.signOut(),
+        onTap: (){ Authentication().signOut(context);
+          Navigator.pop(context);},
         child: Row(
           mainAxisSize: MainAxisSize.min,
           children: [
