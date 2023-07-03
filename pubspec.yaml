@@ -27,6 +27,11 @@ dependencies:
   flutter_riverpod: ^2.3.6
   quickalert: ^1.0.1
   snippet_coder_utils: ^1.0.14
+  appinio_video_player: ^1.2.1
+  video_player: ^2.7.0
+
+
+
 
 
 
@@ -41,6 +46,7 @@ dev_dependencies:
 flutter:
   assets:
     - assets/images/
+    - assets/videos/
 
   fonts:
     - family: Valorant

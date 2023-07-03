@@ -130,8 +130,10 @@ class CustomAppDrawer extends StatelessWidget {
                 'Games Modes',
               ),
               onTap: () {
-                Navigator.push(context,
-                    MaterialPageRoute(builder: (context) => Gamemodescreen()));
+                Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                        builder: (context) => Game_Mode_Screen()));
                 // Handle menu item 3 press
               },
             ),

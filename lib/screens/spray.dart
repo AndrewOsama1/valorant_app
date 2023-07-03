@@ -36,8 +36,7 @@ class _SprayScreenState extends State<SprayScreen> {
   }
 
   Future<void> fetchData() async {
-    const url =
-        'https://valorant-api.com/v1/sprays'; // Replace with your API endpoint
+    const url = 'https://valorant-api.com/v1/sprays';
     final response = await http.get(Uri.parse(url));
 
     if (response.statusCode == 200) {
@@ -98,19 +97,12 @@ class _SprayScreenState extends State<SprayScreen> {
                   carouselController: carouselController,
                   options: CarouselOptions(
                     height: 455,
-                    // Adjust the height as needed
                     enableInfiniteScroll: true,
-                    // Set to false if you don't want infinite scrolling
                     enlargeCenterPage: false,
-                    // Set to false if you don't want the center image to be larger
-                    // Set to false if you don't want auto-play
                     autoPlayInterval: const Duration(seconds: 2),
-                    // Adjust the interval duration
                     autoPlayAnimationDuration:
                         const Duration(milliseconds: 800),
-                    // Adjust the animation duration
                     autoPlayCurve: Curves.fastOutSlowIn,
-                    // Adjust the animation curve
                     onPageChanged: (index, reason) {
                       setState(() {
                         currentIndex = index;

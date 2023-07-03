@@ -166,7 +166,7 @@ class HomepageState extends State<Homepage>
                           Navigator.push(
                               context,
                               MaterialPageRoute(
-                                  builder: (context) => SprayScreen()));
+                                  builder: (context) => const SprayScreen()));
                         },
                         child: const GlassCard(
                           imagePath: 'assets/images/sas7.png',
@@ -179,7 +179,7 @@ class HomepageState extends State<Homepage>
                               context,
                               MaterialPageRoute(
                                   builder: (context) =>
-                                      const Gamemodescreen()));
+                                      const Game_Mode_Screen()));
                         },
                         child: const GlassCard(
                           imagePath: 'assets/images/sas2.png',

@@ -85,19 +85,12 @@ class _BuddiesScreenState extends State<BuddiesScreen> {
                     carouselController: carouselController,
                     options: CarouselOptions(
                       height: 400.0,
-                      // Adjust the height as needed
                       enableInfiniteScroll: true,
-                      // Set to false if you don't want infinite scrolling
                       enlargeCenterPage: true,
-                      // Set to false if you don't want the center image to be larger
-                      // Set to false if you don't want auto-play
                       autoPlayInterval: const Duration(seconds: 2),
-                      // Adjust the interval duration
                       autoPlayAnimationDuration:
                           const Duration(milliseconds: 800),
-                      // Adjust the animation duration
                       autoPlayCurve: Curves.fastOutSlowIn,
-                      // Adjust the animation curve
                       onPageChanged: (index, reason) {
                         setState(() {
                           currentIndex = index;

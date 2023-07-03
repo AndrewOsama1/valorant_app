@@ -14,14 +14,14 @@ class MapData {
       {required this.displayName, required this.displayIcon, this.duration});
 }
 
-class Gamemodescreen extends StatefulWidget {
-  const Gamemodescreen({super.key});
+class Game_Mode_Screen extends StatefulWidget {
+  const Game_Mode_Screen({super.key});
 
   @override
-  GamemodescreenState createState() => GamemodescreenState();
+  Game_Mode_ScreenState createState() => Game_Mode_ScreenState();
 }
 
-class GamemodescreenState extends State<Gamemodescreen>
+class Game_Mode_ScreenState extends State<Game_Mode_Screen>
     with SingleTickerProviderStateMixin {
   List<MapData> mapData = [];
 
@@ -32,8 +32,7 @@ class GamemodescreenState extends State<Gamemodescreen>
   }
 
   Future<void> fetchData() async {
-    const url =
-        'https://valorant-api.com/v1/gamemodes'; // Replace with your API endpoint
+    const url = 'https://valorant-api.com/v1/gamemodes';
     final response = await http.get(Uri.parse(url));
 
     if (response.statusCode == 200) {
@@ -90,9 +89,7 @@ class GamemodescreenState extends State<Gamemodescreen>
                           ),
                           textAlign: TextAlign.center,
                         ),
-                        const SizedBox(
-                            width:
-                                40), // Add spacing between the button and text
+                        const SizedBox(width: 40),
                       ],
                     ),
                   ),

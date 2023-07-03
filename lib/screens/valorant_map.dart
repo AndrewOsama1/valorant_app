@@ -88,81 +88,11 @@ class ValorantMapState extends State<ValorantMap> {
                               child: Image.asset(
                                   'assets/images/${widget.mapName.toLowerCase()}.png'),
                             ),
-                            if (isPaintingEnabled)
-                              GestureDetector(
-                                onPanDown: (details) {
-                                  final RenderBox renderBox = _imageKey
-                                      .currentContext
-                                      ?.findRenderObject() as RenderBox;
-                                  final localPosition = renderBox
-                                      .globalToLocal(details.globalPosition);
-                                  setState(() {
-                                    currentLine = [localPosition];
-                                    lines.add(currentLine!);
-                                  });
-                                },
-                                onPanUpdate: (details) {
-                                  final RenderBox renderBox = _imageKey
-                                      .currentContext
-                                      ?.findRenderObject() as RenderBox;
-                                  final localPosition = renderBox
-                                      .globalToLocal(details.globalPosition);
-                                  setState(() {
-                                    currentLine?.add(localPosition);
-                                  });
-                                },
-                                onPanEnd: (_) {
-                                  currentLine = null;
-                                },
-                                child: CustomPaint(
-                                  painter: DrawingPainter(
-                                      lines, Size(500 * scale, 250 * scale)),
-                                  size: Size(500 * scale, 250 * scale),
-                                ),
-                              ),
-                            if (!isPaintingEnabled)
-                              IgnorePointer(
-                                child: CustomPaint(
-                                  painter: DrawingPainter(
-                                      lines, Size(500 * scale, 250 * scale)),
-                                  size: Size(500 * scale, 250 * scale),
-                                ),
-                              ),
                           ],
                         ),
                       ),
                     );
                   },
-                ),
-              ),
-            ],
-          ),
-          floatingActionButton: Column(
-            mainAxisAlignment: MainAxisAlignment.end,
-            children: [
-              FloatingActionButton(
-                heroTag: 'paint',
-                backgroundColor: kMenucolor,
-                onPressed: () {
-                  setState(() {
-                    isPaintingEnabled = !isPaintingEnabled;
-                  });
-                },
-                child: Icon(
-                  isPaintingEnabled ? Icons.brush : Icons.brush_outlined,
-                ),
-              ),
-              const SizedBox(height: 16),
-              FloatingActionButton(
-                heroTag: 'delete',
-                backgroundColor: kMenucolor,
-                onPressed: () {
-                  setState(() {
-                    lines.clear();
-                  });
-                },
-                child: const Icon(
-                  Icons.delete,
                 ),
               ),
             ],

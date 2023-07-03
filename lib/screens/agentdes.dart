@@ -52,9 +52,7 @@ class _YourAgentState extends State<YourAgent> {
                           ),
                           textAlign: TextAlign.center,
                         ),
-                        const SizedBox(
-                            width:
-                                40), // Add spacing between the button and text
+                        const SizedBox(width: 40),
                       ],
                     ),
                   ),

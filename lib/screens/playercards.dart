@@ -72,7 +72,7 @@ class PlayerCardsState extends State<PlayerCardsScreen> {
       body: Column(
         children: [
           const Text(
-            'Valorant playercards',
+            'Valorant player cards',
             style: TextStyle(fontSize: 25),
           ),
           const Center(
@@ -84,12 +84,10 @@ class PlayerCardsState extends State<PlayerCardsScreen> {
                   options: CarouselOptions(
                     height: 455,
 
-                    // Adjust the height as needed
                     enableInfiniteScroll: true,
-                    // Set to false if you don't want infinite scrolling
+
                     enlargeCenterPage: false,
-                    // Set to false if you don't want the center image to be larger
-                    // Set to false if you don't want auto-play
+
                     autoPlayInterval: const Duration(seconds: 2),
                     // Adjust the interval duration
                     autoPlayAnimationDuration:

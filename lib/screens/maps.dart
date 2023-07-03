@@ -41,7 +41,6 @@ class MapScreenState extends State<MapScreen>
       curve: Curves.easeInOut,
     );
 
-    // Define the scale animation
     _animation = Tween<double>(begin: 0.2, end: 1.0).animate(curvedAnimation);
 
     fetchData();
@@ -122,7 +121,7 @@ class MapScreenState extends State<MapScreen>
               Expanded(
                 child: GridView.builder(
                   gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-                    crossAxisCount: 2, // Display two cards per row
+                    crossAxisCount: 2,
                     crossAxisSpacing: 16.0, // Horizontal spacing between cards
                     mainAxisSpacing: 16.0, // Vertical spacing between cards
                   ),

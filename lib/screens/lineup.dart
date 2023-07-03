@@ -3,10 +3,9 @@ import 'package:valorant_app/widgets/constant.dart';
 import 'package:valorant_app/widgets/chip.dart';
 import 'package:valorant_app/widgets/custom_app_bar.dart';
 import 'package:valorant_app/widgets/custom_drawer.dart';
+import 'package:video_player/video_player.dart';
 
 class Lineup extends StatefulWidget {
-  const Lineup({super.key});
-
   @override
   LineupState createState() => LineupState();
 }
@@ -21,8 +20,81 @@ class LineupState extends State<Lineup> {
   bool showContainer7 = false;
   bool showContainer8 = false;
   bool showContainer9 = false;
+  bool isPlaying = false;
 
-  // Add more boolean variables for each container
+  List<String> videoPaths = [
+    'assets/videos/sage.mp4',
+    'assets/videos/yoru.mp4',
+    'assets/videos/brim.mp4',
+    'assets/videos/viper.mp4',
+    'assets/videos/killjoy.mp4',
+    'assets/videos/sova.mp4',
+    'assets/videos/cypher.mp4',
+    'assets/videos/kayo.mp4',
+    'assets/videos/fade.mp4',
+
+    // Add more video paths here
+  ];
+  List<VideoPlayerController> videoControllers = [];
+  List<bool> isVideoInitialized = [];
+
+  @override
+  void initState() {
+    super.initState();
+    for (String path in videoPaths) {
+      final controller = VideoPlayerController.asset(path);
+      videoControllers.add(controller);
+      isVideoInitialized.add(false);
+      controller.initialize().then((_) {
+        setState(() {
+          isVideoInitialized[videoControllers.indexOf(controller)] = true;
+        });
+      }).catchError((error) {});
+    }
+  }
+
+  @override
+  void dispose() {
+    for (VideoPlayerController controller in videoControllers) {
+      controller.dispose();
+    }
+    super.dispose();
+  }
+
+  Widget buildVideoPlayer(int index) {
+    final controller = videoControllers[index];
+    if (isVideoInitialized[index]) {
+      return AspectRatio(
+        aspectRatio: controller.value.aspectRatio,
+        child: Stack(
+          alignment: Alignment.center,
+          children: [
+            ClipRRect(
+                borderRadius: BorderRadius.circular(20),
+                child: VideoPlayer(controller)),
+            IconButton(
+              icon: Icon(
+                isPlaying ? Icons.pause : Icons.play_arrow,
+                color: Colors.white,
+              ),
+              onPressed: () {
+                setState(() {
+                  if (isPlaying) {
+                    controller.pause();
+                  } else {
+                    controller.play();
+                  }
+                  isPlaying = !isPlaying;
+                });
+              },
+            ),
+          ],
+        ),
+      );
+    } else {
+      return const CircularProgressIndicator();
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -56,8 +128,7 @@ class LineupState extends State<Lineup> {
                     ),
                     textAlign: TextAlign.center,
                   ),
-                  const SizedBox(
-                      width: 40), // Add spacing between the button and text
+                  const SizedBox(width: 40),
                 ],
               ),
               Row(
@@ -97,7 +168,6 @@ class LineupState extends State<Lineup> {
                       });
                     },
                   ),
-                  // Add more individual chips here...
                 ],
               ),
               Row(
@@ -137,7 +207,6 @@ class LineupState extends State<Lineup> {
                       });
                     },
                   ),
-                  // Add more individual chips here...
                 ],
               ),
               Row(
@@ -177,9 +246,10 @@ class LineupState extends State<Lineup> {
                       });
                     },
                   ),
-                  // Add more individual chips here...
                 ],
               ),
+
+              // Repeat the same pattern for other rows of chips
 
               Visibility(
                 visible: showContainer1,
@@ -190,25 +260,26 @@ class LineupState extends State<Lineup> {
                         height: 25,
                       ),
                       const Text(
-                        'Sage in Haven',
+                        'Sage in Pearl',
                         style: TextStyle(fontSize: 40, color: kMenucolor),
                       ),
                       const SizedBox(
                         height: 40,
                       ),
                       const Text(
-                        'Yoru Teleports from C to Their base',
-                        style: TextStyle(fontSize: 20),
+                        'Grimwall Sage in A site ',
+                        style: TextStyle(fontSize: 18),
                       ),
                       const SizedBox(
                         height: 40,
                       ),
-                      Image.asset('assets/images/yoru.gif'),
+                      isVideoInitialized[0]
+                          ? buildVideoPlayer(0)
+                          : const CircularProgressIndicator(),
                     ],
                   ),
                 ),
               ),
-
               Visibility(
                 visible: showContainer2,
                 child: Center(
@@ -226,17 +297,18 @@ class LineupState extends State<Lineup> {
                       ),
                       const Text(
                         'Yoru Teleports from C to Their base',
-                        style: TextStyle(fontSize: 20),
+                        style: TextStyle(fontSize: 18),
                       ),
                       const SizedBox(
                         height: 40,
                       ),
-                      Image.asset('assets/images/yoru.gif'),
+                      isVideoInitialized[1]
+                          ? buildVideoPlayer(1)
+                          : const CircularProgressIndicator(),
                     ],
                   ),
                 ),
               ),
-
               Visibility(
                 visible: showContainer3,
                 child: Center(
@@ -246,25 +318,26 @@ class LineupState extends State<Lineup> {
                         height: 25,
                       ),
                       const Text(
-                        'Brimstone in Haven',
+                        'Brimstone in Bind',
                         style: TextStyle(fontSize: 40, color: kMenucolor),
                       ),
                       const SizedBox(
                         height: 40,
                       ),
                       const Text(
-                        'Yoru Teleports from C to Their base',
-                        style: TextStyle(fontSize: 20),
+                        'Brimstone Lineup on B ',
+                        style: TextStyle(fontSize: 18),
                       ),
                       const SizedBox(
                         height: 40,
                       ),
-                      Image.asset('assets/images/yoru.gif'),
+                      isVideoInitialized[2]
+                          ? buildVideoPlayer(2)
+                          : const CircularProgressIndicator(),
                     ],
                   ),
                 ),
               ),
-
               Visibility(
                 visible: showContainer4,
                 child: Center(
@@ -274,25 +347,26 @@ class LineupState extends State<Lineup> {
                         height: 25,
                       ),
                       const Text(
-                        'Viper in Haven',
+                        'Viper in A',
                         style: TextStyle(fontSize: 40, color: kMenucolor),
                       ),
                       const SizedBox(
                         height: 40,
                       ),
                       const Text(
-                        'Viper Teleports from C to Their base',
-                        style: TextStyle(fontSize: 20),
+                        'Viper Lineup on A ',
+                        style: TextStyle(fontSize: 18),
                       ),
                       const SizedBox(
                         height: 40,
                       ),
-                      Image.asset('assets/images/yoru.gif'),
+                      isVideoInitialized[3]
+                          ? buildVideoPlayer(3)
+                          : const CircularProgressIndicator(),
                     ],
                   ),
                 ),
               ),
-
               Visibility(
                 visible: showContainer5,
                 child: Center(
@@ -302,20 +376,22 @@ class LineupState extends State<Lineup> {
                         height: 25,
                       ),
                       const Text(
-                        'killjoy in Haven',
+                        'Killjoy in Fracture',
                         style: TextStyle(fontSize: 40, color: kMenucolor),
                       ),
                       const SizedBox(
                         height: 40,
                       ),
                       const Text(
-                        'Yoru Teleports from C to Their base',
-                        style: TextStyle(fontSize: 20),
+                        'KillJoy Setup A ',
+                        style: TextStyle(fontSize: 18),
                       ),
                       const SizedBox(
                         height: 40,
                       ),
-                      Image.asset('assets/images/yoru.gif'),
+                      isVideoInitialized[4]
+                          ? buildVideoPlayer(4)
+                          : const CircularProgressIndicator(),
                     ],
                   ),
                 ),
@@ -329,25 +405,26 @@ class LineupState extends State<Lineup> {
                         height: 25,
                       ),
                       const Text(
-                        'Sova in Haven',
+                        'Sova in Lotus',
                         style: TextStyle(fontSize: 40, color: kMenucolor),
                       ),
                       const SizedBox(
                         height: 40,
                       ),
                       const Text(
-                        'Yoru Teleports from C to Their base',
-                        style: TextStyle(fontSize: 20),
+                        'Sova Reveal on A ',
+                        style: TextStyle(fontSize: 18),
                       ),
                       const SizedBox(
                         height: 40,
                       ),
-                      Image.asset('assets/images/yoru.gif'),
+                      isVideoInitialized[5]
+                          ? buildVideoPlayer(5)
+                          : const CircularProgressIndicator(),
                     ],
                   ),
                 ),
               ),
-
               Visibility(
                 visible: showContainer7,
                 child: Center(
@@ -357,25 +434,26 @@ class LineupState extends State<Lineup> {
                         height: 25,
                       ),
                       const Text(
-                        'Cypher in Haven',
+                        'Cypher in Breeze',
                         style: TextStyle(fontSize: 40, color: kMenucolor),
                       ),
                       const SizedBox(
                         height: 40,
                       ),
                       const Text(
-                        'Cypher Teleports from C to Their base',
-                        style: TextStyle(fontSize: 20),
+                        'Cypher Setup on A ',
+                        style: TextStyle(fontSize: 18),
                       ),
                       const SizedBox(
                         height: 40,
                       ),
-                      Image.asset('assets/images/yoru.gif'),
+                      isVideoInitialized[6]
+                          ? buildVideoPlayer(6)
+                          : const CircularProgressIndicator(),
                     ],
                   ),
                 ),
               ),
-
               Visibility(
                 visible: showContainer8,
                 child: Center(
@@ -385,25 +463,26 @@ class LineupState extends State<Lineup> {
                         height: 25,
                       ),
                       const Text(
-                        'Kayo in Haven',
+                        'Kayo in Split',
                         style: TextStyle(fontSize: 40, color: kMenucolor),
                       ),
                       const SizedBox(
                         height: 40,
                       ),
                       const Text(
-                        'Yoru Teleports from C to Their base',
-                        style: TextStyle(fontSize: 20),
+                        'Kayo Oneway flash A ',
+                        style: TextStyle(fontSize: 18),
                       ),
                       const SizedBox(
                         height: 40,
                       ),
-                      Image.asset('assets/images/yoru.gif'),
+                      isVideoInitialized[7]
+                          ? buildVideoPlayer(7)
+                          : const CircularProgressIndicator(),
                     ],
                   ),
                 ),
               ),
-
               Visibility(
                 visible: showContainer9,
                 child: Center(
@@ -413,26 +492,28 @@ class LineupState extends State<Lineup> {
                         height: 25,
                       ),
                       const Text(
-                        'Fade in Haven',
+                        'Fade in Icebox',
                         style: TextStyle(fontSize: 40, color: kMenucolor),
                       ),
                       const SizedBox(
                         height: 40,
                       ),
                       const Text(
-                        'Yoru Teleports from C to Their base',
-                        style: TextStyle(fontSize: 20),
+                        'Fade Reveal on A ',
+                        style: TextStyle(fontSize: 18),
                       ),
                       const SizedBox(
                         height: 40,
                       ),
-                      Image.asset('assets/images/yoru.gif'),
+                      isVideoInitialized[8]
+                          ? buildVideoPlayer(8)
+                          : const CircularProgressIndicator(),
                     ],
                   ),
                 ),
               ),
 
-              // Add more containers...
+              // Repeat the same pattern for other videos
             ],
           ),
         ),

@@ -45,7 +45,7 @@ class BundleScreenState extends State<BundleScreen>
     _animation = Tween<double>(begin: 0.2, end: 1.0).animate(curvedAnimation);
 
     fetchData();
-    // Repeat the animation forever
+
     _animationController.forward();
   }
 

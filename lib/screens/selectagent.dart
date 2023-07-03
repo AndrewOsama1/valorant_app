@@ -133,7 +133,7 @@ class AgentScreenState extends State<AgentScreen>
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               const SizedBox(
-                width: double.infinity, // Use the full width available
+                width: double.infinity,
                 child: Text(
                   'Select your Agent',
                   style: TextStyle(
@@ -172,8 +172,7 @@ class AgentScreenState extends State<AgentScreen>
                     crossAxisSpacing: 16.0, // Horizontal spacing between cards
                     mainAxisSpacing: 16.0, // Vertical spacing between cards
                   ),
-                  padding:
-                      const EdgeInsets.all(16.0), // Margin for the entire grid
+                  padding: const EdgeInsets.all(16.0),
                   itemCount: mapData.length,
                   itemBuilder: (BuildContext context, int index) {
                     final map = mapData[index];
