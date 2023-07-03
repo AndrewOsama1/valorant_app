@@ -2,10 +2,10 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:quickalert/models/quickalert_type.dart';
 import 'package:quickalert/widgets/quickalert_dialog.dart';
-import 'package:valorant_app/login.dart';
+import 'package:valorant_app/service/login.dart';
 
-import '../constant.dart';
-import '../homepage.dart';
+import '../widgets/constant.dart';
+import '../screens/homepage.dart';
 
 class Authentication {
   // For Authentication related functions you need an instance of FirebaseAuth

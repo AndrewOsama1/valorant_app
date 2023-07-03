@@ -1,9 +1,8 @@
 import 'package:flutter/material.dart';
-
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'package:valorant_app/constant.dart';
+import 'package:valorant_app/widgets/constant.dart';
 import 'package:modal_progress_hud_nsn/modal_progress_hud_nsn.dart';
-import 'package:valorant_app/register.dart';
+import 'package:valorant_app/service/register.dart';
 import 'package:valorant_app/service/authentication.dart';
 import 'package:valorant_app/widgets/logo_widget.dart';
 

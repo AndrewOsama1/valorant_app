@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'package:valorant_app/constant.dart';
-import 'package:valorant_app/homepage.dart';
+import 'package:valorant_app/widgets/constant.dart';
+import 'package:valorant_app/screens/homepage.dart';
 import 'package:modal_progress_hud_nsn/modal_progress_hud_nsn.dart';
-import 'package:valorant_app/login.dart';
+import 'package:valorant_app/service/login.dart';
 import 'package:valorant_app/service/authentication.dart';
 
 class Register extends StatefulWidget {

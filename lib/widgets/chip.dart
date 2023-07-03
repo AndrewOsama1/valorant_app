@@ -1,7 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
-import '../constant.dart';
+import 'constant.dart';
 
 Widget buildChip({
   required String label,

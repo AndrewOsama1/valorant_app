@@ -1,15 +1,15 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
-import '../buddies.dart';
-import '../bundles.dart';
-import '../constant.dart';
-import '../gamemodes.dart';
-import '../homepage.dart';
-import '../maps.dart';
-import '../playercards.dart';
-import '../selectagent.dart';
-import '../spray.dart';
+import '../screens/buddies.dart';
+import '../screens/bundles.dart';
+import 'constant.dart';
+import '../screens/gamemodes.dart';
+import '../screens/homepage.dart';
+import '../screens/maps.dart';
+import '../screens/playercards.dart';
+import '../screens/selectagent.dart';
+import '../screens/spray.dart';
 
 class CustomAppDrawer extends StatelessWidget {
   const CustomAppDrawer({super.key});

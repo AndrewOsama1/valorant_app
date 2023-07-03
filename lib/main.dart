@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'constant.dart';
+import 'widgets/constant.dart';
 import 'firebase_options.dart';
-import 'homepage.dart';
+import 'screens/homepage.dart';
 import 'package:firebase_core/firebase_core.dart';
 
 const TextStyle kDefaultTextStyle = TextStyle(

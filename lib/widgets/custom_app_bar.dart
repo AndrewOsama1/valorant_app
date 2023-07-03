@@ -1,11 +1,11 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:valorant_app/homepage.dart';
+import 'package:valorant_app/screens/homepage.dart';
 import 'package:valorant_app/provider/authentication_provider.dart';
 import 'package:valorant_app/service/authentication.dart';
 
-import '../login.dart';
+import '../service/login.dart';
 
 class CustomAppBar extends ConsumerWidget implements PreferredSizeWidget {
   final String? username;

@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:valorant_app/selectagent.dart';
+import 'package:valorant_app/screens/selectagent.dart';
 import 'package:valorant_app/widgets/custom_app_bar.dart';
 import 'package:valorant_app/widgets/custom_drawer.dart';
-import 'constant.dart';
+import '../widgets/constant.dart';
 
 class YourAgent extends StatefulWidget {
   final AgentData agentData;

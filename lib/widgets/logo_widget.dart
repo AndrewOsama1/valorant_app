@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import '../homepage.dart';
+import '../screens/homepage.dart';
 
 class LogoWidget extends StatelessWidget {
   const LogoWidget({
@@ -12,10 +12,7 @@ class LogoWidget extends StatelessWidget {
     return InkWell(
       onTap: () {
         Navigator.push(
-            context,
-            MaterialPageRoute(
-                builder: (context) =>
-                const Homepage()));
+            context, MaterialPageRoute(builder: (context) => const Homepage()));
       },
       child: Image.asset(
         'assets/images/valorantlogo.png',

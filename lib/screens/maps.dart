@@ -1,63 +1,31 @@
 import 'package:flutter/material.dart';
-import 'package:valorant_app/agentdes.dart';
-import 'package:valorant_app/homepage.dart';
+import 'package:valorant_app/screens/homepage.dart';
 import 'package:http/http.dart' as http;
+import 'package:valorant_app/screens/valorant_map.dart';
 import 'package:valorant_app/widgets/custom_app_bar.dart';
 import 'package:valorant_app/widgets/custom_drawer.dart';
-import 'package:valorant_app/widgets/mapcard.dart';
+import 'package:valorant_app/widgets/map_card.dart';
 import 'dart:convert';
 
-class AgentData {
-  final String displayIcon;
+class MapData {
   final String displayName;
-  final String background;
-  final String fullPortrait;
-  final String roleIcon;
-  final String abilityOne;
-  final String abilityTwo;
-  final String abilityThree;
-  final String desOne;
-  final String desTwo;
-  final String desThree;
-  final String iconOne;
-  final String iconTwo;
-  final String iconThree;
-  final String iconFour;
-  final String abilityFour;
-  final String desFour;
+  final String splash;
 
-  AgentData(
-      {required this.displayIcon,
-      required this.displayName,
-      required this.background,
-      required this.fullPortrait,
-      required this.roleIcon,
-      required this.abilityOne,
-      required this.abilityThree,
-      required this.abilityTwo,
-      required this.desOne,
-      required this.desThree,
-      required this.desTwo,
-      required this.iconOne,
-      required this.iconThree,
-      required this.iconTwo,
-      required this.abilityFour,
-      required this.desFour,
-      required this.iconFour});
+  MapData({required this.displayName, required this.splash});
 }
 
-class AgentScreen extends StatefulWidget {
-  const AgentScreen({super.key});
+class MapScreen extends StatefulWidget {
+  const MapScreen({super.key});
 
   @override
-  AgentScreenState createState() => AgentScreenState();
+  MapScreenState createState() => MapScreenState();
 }
 
-class AgentScreenState extends State<AgentScreen>
+class MapScreenState extends State<MapScreen>
     with SingleTickerProviderStateMixin {
   late AnimationController _animationController;
   late Animation<double> _animation;
-  List<AgentData> mapData = [];
+  List<MapData> mapData = [];
 
   @override
   void initState() {
@@ -83,34 +51,20 @@ class AgentScreenState extends State<AgentScreen>
 
   Future<void> fetchData() async {
     const url =
-        'https://valorant-api.com/v1/agents'; // Replace with your API endpoint
+        'https://valorant-api.com/v1/maps'; // Replace with your API endpoint
     final response = await http.get(Uri.parse(url));
 
     if (response.statusCode == 200) {
       final data = jsonDecode(response.body);
       final maps = data['data'];
-      maps.removeAt(9);
+      maps.removeAt(11);
 
       setState(() {
         mapData = maps
-            .map<AgentData>((map) => AgentData(
-                displayIcon: map['displayIcon'],
-                displayName: map['displayName'],
-                background: map['background'],
-                fullPortrait: map['fullPortraitV2'],
-                roleIcon: map['role']['displayIcon'],
-                abilityOne: map['abilities'][0]['displayName'],
-                abilityTwo: map['abilities'][1]['displayName'],
-                abilityThree: map['abilities'][2]['displayName'],
-                iconOne: map['abilities'][0]['displayIcon'],
-                iconTwo: map['abilities'][1]['displayIcon'],
-                iconThree: map['abilities'][2]['displayIcon'],
-                desOne: map['abilities'][0]['description'],
-                desTwo: map['abilities'][1]['description'],
-                desThree: map['abilities'][2]['description'],
-                abilityFour: map['abilities'][3]['displayName'],
-                desFour: map['abilities'][3]['description'],
-                iconFour: map['abilities'][3]['displayIcon']))
+            .map<MapData>((map) => MapData(
+                  displayName: map['displayName'],
+                  splash: map['splash'],
+                ))
             .toList();
       });
     }
@@ -118,7 +72,7 @@ class AgentScreenState extends State<AgentScreen>
 
   @override
   void dispose() {
-    _animationController.dispose();
+    if (!mounted) _animationController.dispose();
     super.dispose();
   }
 
@@ -135,7 +89,7 @@ class AgentScreenState extends State<AgentScreen>
               const SizedBox(
                 width: double.infinity, // Use the full width available
                 child: Text(
-                  'Select your Agent',
+                  'VALORANT MAPS',
                   style: TextStyle(
                     fontSize: 28.0,
                     fontFamily: 'Valorant',
@@ -168,7 +122,7 @@ class AgentScreenState extends State<AgentScreen>
               Expanded(
                 child: GridView.builder(
                   gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-                    crossAxisCount: 4, // Display two cards per row
+                    crossAxisCount: 2, // Display two cards per row
                     crossAxisSpacing: 16.0, // Horizontal spacing between cards
                     mainAxisSpacing: 16.0, // Vertical spacing between cards
                   ),
@@ -182,14 +136,14 @@ class AgentScreenState extends State<AgentScreen>
                         Navigator.push(
                             context,
                             MaterialPageRoute(
-                              builder: (context) => YourAgent(
-                                agentData: map,
-                              ),
+                              builder: (context) =>
+                                  ValorantMap(mapName: map.displayName),
                             ));
                         // Handle card tap here
                       },
-                      child: MapCardz(
-                        imagePath: map.displayIcon,
+                      child: MapCard(
+                        imagePath: map.splash,
+                        text: map.displayName,
                       ),
                     );
                   },

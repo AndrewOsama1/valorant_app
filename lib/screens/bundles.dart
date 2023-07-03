@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:valorant_app/homepage.dart';
+import 'package:valorant_app/screens/homepage.dart';
 import 'package:http/http.dart' as http;
 
 import 'package:valorant_app/widgets/custom_app_bar.dart';

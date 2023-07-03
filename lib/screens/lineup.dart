@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:valorant_app/constant.dart';
+import 'package:valorant_app/widgets/constant.dart';
 import 'package:valorant_app/widgets/chip.dart';
 import 'package:valorant_app/widgets/custom_app_bar.dart';
 import 'package:valorant_app/widgets/custom_drawer.dart';

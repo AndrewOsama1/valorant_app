@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:valorant_app/homepage.dart';
+import 'package:valorant_app/screens/homepage.dart';
 import 'package:valorant_app/widgets/cardff.dart';
 import 'package:valorant_app/widgets/custom_app_bar.dart';
 import 'package:valorant_app/widgets/custom_drawer.dart';
-import 'constant.dart';
+import '../widgets/constant.dart';
 
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:http/http.dart' as http;
