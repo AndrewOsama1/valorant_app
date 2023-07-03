@@ -1,12 +1,8 @@
 import 'package:flutter/material.dart';
-
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'package:quickalert/models/quickalert_type.dart';
-import 'package:quickalert/widgets/quickalert_dialog.dart';
 import 'package:valorant_app/constant.dart';
 import 'package:valorant_app/homepage.dart';
 import 'package:modal_progress_hud_nsn/modal_progress_hud_nsn.dart';
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:valorant_app/login.dart';
 import 'package:valorant_app/service/authentication.dart';
 
@@ -19,7 +15,7 @@ class Register extends StatefulWidget {
 
 class _RegisterState extends State<Register> {
   void click() {}
-  final _auth = FirebaseAuth.instance;
+
   bool showSpinner = false;
   late String email;
   late String password;
@@ -103,8 +99,7 @@ class _RegisterState extends State<Register> {
                                   },
                                   cursorColor: kMenucolor,
                                   style: const TextStyle(
-                                    color: Colors
-                                        .black, // Set the text color to black
+                                    color: Colors.black,
                                   ),
                                   decoration: const InputDecoration(
                                     suffixIcon: Icon(
@@ -113,8 +108,7 @@ class _RegisterState extends State<Register> {
                                     ),
                                     labelText: "Email Address",
                                     labelStyle: TextStyle(
-                                      color:
-                                          kMenucolor, // Set the text color when focused
+                                      color: kMenucolor,
                                     ),
                                     border: OutlineInputBorder(
                                       borderRadius: BorderRadius.all(
@@ -126,8 +120,7 @@ class _RegisterState extends State<Register> {
                                         Radius.circular(8),
                                       ),
                                       borderSide: BorderSide(
-                                        color:
-                                            kMenucolor, // Set the border color when focused
+                                        color: kMenucolor,
                                       ),
                                     ),
                                     enabledBorder: OutlineInputBorder(
@@ -135,8 +128,7 @@ class _RegisterState extends State<Register> {
                                         Radius.circular(8),
                                       ),
                                       borderSide: BorderSide(
-                                        color: Colors
-                                            .black, // Set the default border color
+                                        color: Colors.black,
                                       ),
                                     ),
                                   ),
@@ -154,8 +146,7 @@ class _RegisterState extends State<Register> {
                                   },
                                   cursorColor: kMenucolor,
                                   style: const TextStyle(
-                                    color: Colors
-                                        .black, // Set the text color to black
+                                    color: Colors.black,
                                   ),
                                   decoration: const InputDecoration(
                                     suffixIcon: Icon(
@@ -163,10 +154,7 @@ class _RegisterState extends State<Register> {
                                       color: kMenucolor,
                                     ),
                                     labelText: "Password",
-                                    labelStyle: TextStyle(
-                                      color:
-                                          kMenucolor, // Set the text color when focused
-                                    ),
+                                    labelStyle: TextStyle(color: kMenucolor),
                                     border: OutlineInputBorder(
                                       borderRadius: BorderRadius.all(
                                         Radius.circular(8),
@@ -177,8 +165,7 @@ class _RegisterState extends State<Register> {
                                         Radius.circular(8),
                                       ),
                                       borderSide: BorderSide(
-                                        color:
-                                            kMenucolor, // Set the border color when focused
+                                        color: kMenucolor,
                                       ),
                                     ),
                                     enabledBorder: OutlineInputBorder(
@@ -186,8 +173,7 @@ class _RegisterState extends State<Register> {
                                         Radius.circular(8),
                                       ),
                                       borderSide: BorderSide(
-                                        color: Colors
-                                            .black, // Set the default border color
+                                        color: Colors.black,
                                       ),
                                     ),
                                   ),
@@ -205,7 +191,7 @@ class _RegisterState extends State<Register> {
                                             context,
                                             MaterialPageRoute(
                                                 builder: (context) =>
-                                                    const Homepage()));
+                                                    const LoginApp()));
                                       },
                                       child: const Text(
                                         "Already Have an Account, Login Now",
@@ -217,7 +203,10 @@ class _RegisterState extends State<Register> {
                                 ),
                               ),
                               GestureDetector(
-                                onTap: () => Authentication().signUpWithEmailAndPassword(email, password, context),
+                                onTap: () {
+                                  Authentication().signUpWithEmailAndPassword(
+                                      email, password, context);
+                                },
                                 child: Container(
                                   alignment: Alignment.center,
                                   width: 250,

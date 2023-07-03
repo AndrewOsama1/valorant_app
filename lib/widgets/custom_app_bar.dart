@@ -1,6 +1,7 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:valorant_app/homepage.dart';
 import 'package:valorant_app/provider/authentication_provider.dart';
 import 'package:valorant_app/service/authentication.dart';
 
@@ -25,8 +26,8 @@ class CustomAppBar extends ConsumerWidget implements PreferredSizeWidget {
       actions: [
         authState.when(
             data: (userData) {
-              if (userData != null) return  _userNameWidget(context,userData);
-              return  _loginWidget(context);
+              if (userData != null) return _userNameWidget(context, userData);
+              return _loginWidget(context);
             },
             loading: () => const Center(child: CircularProgressIndicator()),
             error: (e, trace) => const Text('Invalid User Data')),
@@ -36,32 +37,39 @@ class CustomAppBar extends ConsumerWidget implements PreferredSizeWidget {
 
   Padding _loginWidget(BuildContext context) {
     return Padding(
-        padding: const EdgeInsets.only(right: 16.0),
-        child: InkWell(
-          onTap: () => Navigator.push(context, MaterialPageRoute(builder: (context) => const LoginApp())),
-          child: const Row(
-            mainAxisSize: MainAxisSize.min,
-            children: [
-              SizedBox(height: 4),
-              Text('Login',),
-              Icon(Icons.login), // Display username if available, otherwise display 'Login'
-            ],
-          ),
+      padding: const EdgeInsets.only(right: 16.0),
+      child: InkWell(
+        onTap: () => Navigator.push(
+            context, MaterialPageRoute(builder: (context) => const LoginApp())),
+        child: const Row(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            SizedBox(height: 4),
+            Text(
+              'Login',
+            ),
+            Icon(Icons
+                .login), // Display username if available, otherwise display 'Login'
+          ],
         ),
-      );
+      ),
+    );
   }
-  Padding _userNameWidget(BuildContext context,User user) {
+
+  Padding _userNameWidget(BuildContext context, User user) {
     return Padding(
       padding: const EdgeInsets.only(right: 16.0),
-      child:  InkWell(
-        onTap: (){ Authentication().signOut(context);
-          Navigator.pop(context);},
+      child: InkWell(
+        onTap: () {
+          Authentication().signOut(context);
+        },
         child: Row(
           mainAxisSize: MainAxisSize.min,
           children: [
             const SizedBox(height: 4),
             Text(user.email!),
-            const Icon(Icons.email), // Display username if available, otherwise display 'Login'
+            const Icon(Icons
+                .email), // Display username if available, otherwise display 'Login'
           ],
         ),
       ),
