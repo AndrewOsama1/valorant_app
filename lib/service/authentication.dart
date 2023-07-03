@@ -20,7 +20,7 @@ class Authentication {
       await _auth.signInWithEmailAndPassword(email: email, password: password);
       Navigator.push(
           context, MaterialPageRoute(builder: (context) => const Homepage()));
-    } on FirebaseAuthException catch (e) {
+    } catch (e) {
       await QuickAlert.show(
         confirmBtnColor: kMenucolor,
         confirmBtnTextStyle: const TextStyle(
@@ -46,7 +46,7 @@ class Authentication {
           MaterialPageRoute(builder: (context) => const LoginApp()),
         );
       }
-    } on FirebaseAuthException catch (e) {
+    } catch (e) {
       await QuickAlert.show(
         confirmBtnColor: kMenucolor,
         confirmBtnTextStyle: const TextStyle(
@@ -57,12 +57,6 @@ class Authentication {
         title: 'Oops... Register Failed',
         text: 'The Email You Tried to Enter is Already in Use',
       );
-    } catch (e) {
-      if (e == 'email-already-in-use') {
-        print('Email already in use.');
-      } else {
-        print('Error: $e');
-      }
     }
   }
 
