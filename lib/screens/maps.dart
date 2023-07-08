@@ -44,13 +44,12 @@ class MapScreenState extends State<MapScreen>
     _animation = Tween<double>(begin: 0.2, end: 1.0).animate(curvedAnimation);
 
     fetchData();
-    // Repeat the animation forever
+
     _animationController.forward();
   }
 
   Future<void> fetchData() async {
-    const url =
-        'https://valorant-api.com/v1/maps'; // Replace with your API endpoint
+    const url = 'https://valorant-api.com/v1/maps';
     final response = await http.get(Uri.parse(url));
 
     if (response.statusCode == 200) {
@@ -138,7 +137,6 @@ class MapScreenState extends State<MapScreen>
                               builder: (context) =>
                                   ValorantMap(mapName: map.displayName),
                             ));
-                        // Handle card tap here
                       },
                       child: MapCard(
                         imagePath: map.splash,

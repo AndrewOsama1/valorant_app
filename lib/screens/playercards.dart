@@ -37,7 +37,7 @@ class PlayerCardsState extends State<PlayerCardsScreen> {
 
   Future<void> fetchData() async {
     const url =
-        'https://valorant-api.com/v1/playercards'; // Replace with your API endpoint
+        'https://valorant-api.com/v1/playercards';
     final response = await http.get(Uri.parse(url));
 
     if (response.statusCode == 200) {
@@ -89,12 +89,12 @@ class PlayerCardsState extends State<PlayerCardsScreen> {
                     enlargeCenterPage: false,
 
                     autoPlayInterval: const Duration(seconds: 2),
-                    // Adjust the interval duration
+
                     autoPlayAnimationDuration:
                         const Duration(milliseconds: 800),
-                    // Adjust the animation duration
+
                     autoPlayCurve: Curves.fastOutSlowIn,
-                    // Adjust the animation curve
+
                     onPageChanged: (index, reason) {
                       setState(() {
                         currentIndex = index;

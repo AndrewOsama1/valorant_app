@@ -33,7 +33,7 @@ class LineupState extends State<Lineup> {
     'assets/videos/kayo.mp4',
     'assets/videos/fade.mp4',
 
-    // Add more video paths here
+
   ];
   List<VideoPlayerController> videoControllers = [];
   List<bool> isVideoInitialized = [];
@@ -513,7 +513,7 @@ class LineupState extends State<Lineup> {
                 ),
               ),
 
-              // Repeat the same pattern for other videos
+
             ],
           ),
         ),

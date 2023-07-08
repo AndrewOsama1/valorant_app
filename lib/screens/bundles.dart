@@ -50,8 +50,7 @@ class BundleScreenState extends State<BundleScreen>
   }
 
   Future<void> fetchData() async {
-    const url =
-        'https://valorant-api.com/v1/bundles'; // Replace with your API endpoint
+    const url = 'https://valorant-api.com/v1/bundles';
     final response = await http.get(Uri.parse(url));
 
     if (response.statusCode == 200) {
@@ -86,7 +85,7 @@ class BundleScreenState extends State<BundleScreen>
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               const SizedBox(
-                width: double.infinity, // Use the full width available
+                width: double.infinity, //
                 child: Text(
                   'VALORANT Bundles',
                   style: TextStyle(
@@ -121,9 +120,9 @@ class BundleScreenState extends State<BundleScreen>
               Expanded(
                 child: GridView.builder(
                   gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-                    crossAxisCount: 2, // Display two cards per row
-                    crossAxisSpacing: 16.0, // Horizontal spacing between cards
-                    mainAxisSpacing: 16.0, // Vertical spacing between cards
+                    crossAxisCount: 2,
+                    crossAxisSpacing: 16.0,
+                    mainAxisSpacing: 16.0,
                   ),
                   padding:
                       const EdgeInsets.all(16.0), // Margin for the entire grid

@@ -63,7 +63,7 @@ class HomepageState extends State<Homepage>
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 SizedBox(
-                  width: double.infinity, // Use the full width available
+                  width: double.infinity,
                   child: DefaultTextStyle(
                     style: const TextStyle(
                       fontSize: 28.0,
@@ -73,17 +73,13 @@ class HomepageState extends State<Homepage>
                       animatedTexts: [
                         TypewriterAnimatedText(
                           'Welcome to Valorant',
-                          speed: const Duration(
-                              milliseconds: 200), // Adjust the speed here
+                          speed: const Duration(milliseconds: 200),
                           textAlign: TextAlign.center,
                         ),
                       ],
-                      repeatForever:
-                          true, // Set to true to repeat the animation indefinitely
-                      pause: const Duration(
-                          seconds: 1), // Pause duration before animation starts
-                      displayFullTextOnTap:
-                          true, // Display full text when tapped
+                      repeatForever: true,
+                      pause: const Duration(seconds: 1),
+                      displayFullTextOnTap: true,
                     ),
                   ),
                 ),

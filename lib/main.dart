@@ -7,7 +7,6 @@ import 'package:firebase_core/firebase_core.dart';
 
 const TextStyle kDefaultTextStyle = TextStyle(
   fontFamily: 'Valorant',
-  // Add other desired text style properties here
 );
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();

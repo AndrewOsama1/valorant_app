@@ -67,7 +67,6 @@ class AgentScreenState extends State<AgentScreen>
       vsync: this,
     );
 
-    // Define the animation curve
     final curvedAnimation = CurvedAnimation(
       parent: _animationController,
       curve: Curves.easeInOut,
@@ -82,8 +81,7 @@ class AgentScreenState extends State<AgentScreen>
   }
 
   Future<void> fetchData() async {
-    const url =
-        'https://valorant-api.com/v1/agents'; // Replace with your API endpoint
+    const url = 'https://valorant-api.com/v1/agents';
     final response = await http.get(Uri.parse(url));
 
     if (response.statusCode == 200) {
@@ -168,7 +166,7 @@ class AgentScreenState extends State<AgentScreen>
               Expanded(
                 child: GridView.builder(
                   gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-                    crossAxisCount: 4, // Display two cards per row
+                    crossAxisCount: 4,
                     crossAxisSpacing: 16.0, // Horizontal spacing between cards
                     mainAxisSpacing: 16.0, // Vertical spacing between cards
                   ),
@@ -185,7 +183,6 @@ class AgentScreenState extends State<AgentScreen>
                                 agentData: map,
                               ),
                             ));
-                        // Handle card tap here
                       },
                       child: MapCardz(
                         imagePath: map.displayIcon,

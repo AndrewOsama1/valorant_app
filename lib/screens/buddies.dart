@@ -37,8 +37,7 @@ class _BuddiesScreenState extends State<BuddiesScreen> {
   }
 
   Future<void> fetchData() async {
-    const url =
-        'https://valorant-api.com/v1/buddies'; // Replace with your API endpoint
+    const url = 'https://valorant-api.com/v1/buddies';
     final response = await http.get(Uri.parse(url));
 
     if (response.statusCode == 200) {
